@@ -1,6 +1,8 @@
 package com.scaler.EcomProductService.service;
 
 import com.scaler.EcomProductService.dto.ProductResponseDTO;
+import com.scaler.EcomProductService.exception.InvalidTitleException;
+import com.scaler.EcomProductService.exception.ProductNotFoundException;
 import com.scaler.EcomProductService.model.Category;
 import com.scaler.EcomProductService.model.Price;
 import com.scaler.EcomProductService.model.Product;
@@ -30,10 +32,11 @@ public class ProductServiceImplTest {
     public void setup(){
         MockitoAnnotations.openMocks(this); // creates auto-closeable resources for each test method .returns obj to test method , used by test method & then it is auto closed after its scope completes.
         // Enables Isolated testing , No obj sharing between test methods
+        System.out.println("Hello World from before each test method");
     }
 
     @Test
-    public void getProductByTitleSuccess(){
+    public void getProductByTitleSuccess() throws ProductNotFoundException {
         //Arrange
         String title = "testProductTitle";
         Category category = new Category();
@@ -53,5 +56,54 @@ public class ProductServiceImplTest {
         Assertions.assertEquals(mockProduct.getId() , actualResponse.getId());
         Assertions.assertEquals(mockProduct.getTitle() , actualResponse.getTitle());
         Assertions.assertEquals(mockProduct.getDescription(), actualResponse.getDescription());
+        Assertions.assertEquals(mockProduct.getPrice().getAmount() ,actualResponse.getPrice());
     }
+    @Test
+    public void getProductByTitle_RepoRespondsWithNullObject(){
+        //Arrange
+        String title = "testProductTitle";
+        when(productRepository.findByTitle(title)).thenReturn(null);
+        //Act & Assert
+        Assertions.assertThrows(ProductNotFoundException.class,()->productServiceImpl.getProductByTitle(title));
+    }
+
+    @Test
+    public void getProductByTitle_NullTitle() {
+        //Arrange
+        String title = null;
+        Category category = new Category();
+        category.setCategoryName("productTestCategory");
+        Price mockPrice = new Price();
+        mockPrice.setAmount(190);
+        Product mockProduct = new Product();
+        mockProduct.setTitle(title);
+        mockProduct.setId(UUID.randomUUID());
+        mockProduct.setDescription("productTestDescription");
+        mockProduct.setCategory(category);
+        mockProduct.setPrice(mockPrice);
+        when(productRepository.findByTitle(title)).thenReturn(mockProduct);
+        //Act & Assert
+        Assertions.assertThrows(InvalidTitleException.class,()->productServiceImpl.getProductByTitle(title));
+    }
+
+    @Test
+    public void getProductByTitle_EmptyTitle(){
+        //Arrange
+        String title = "";
+        Category category = new Category();
+        category.setCategoryName("productTestCategory");
+        Price mockPrice = new Price();
+        mockPrice.setAmount(190);
+        Product mockProduct = new Product();
+        mockProduct.setTitle(title);
+        mockProduct.setId(UUID.randomUUID());
+        mockProduct.setDescription("productTestDescription");
+        mockProduct.setCategory(category);
+        mockProduct.setPrice(mockPrice);
+        when(productRepository.findByTitle(title)).thenReturn(mockProduct);
+        //Act & Assert
+        Assertions.assertThrows(InvalidTitleException.class,()->productServiceImpl.getProductByTitle(title));
+    }
+
+
 }
