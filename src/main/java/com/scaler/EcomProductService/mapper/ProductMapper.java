@@ -37,6 +37,7 @@ public class ProductMapper {
             productResponseDTO.setDescription(p.getDescription());
             productResponseDTO.setImage(p.getImage());
             productResponseDTO.setPrice(p.getPrice().getAmount());
+            productResponseDTO.setInventoryCount(p.getInventoryCount());
             productListResponseDTO.getProducts().add(productResponseDTO);
         }
         return productListResponseDTO;
@@ -50,6 +51,7 @@ public class ProductMapper {
         productResponseDTO.setDescription(product.getDescription());
         productResponseDTO.setImage(product.getImage());
         productResponseDTO.setPrice(product.getPrice().getAmount());
+        productResponseDTO.setInventoryCount(product.getInventoryCount());
         return productResponseDTO;
     }
 }

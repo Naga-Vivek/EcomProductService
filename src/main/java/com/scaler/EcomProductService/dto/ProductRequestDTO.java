@@ -14,16 +14,18 @@ public class ProductRequestDTO {
     private String category;
     private String description;
     private String image;
+    private int inventoryCount;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ProductRequestDTO that = (ProductRequestDTO) o;
-        return Double.compare(that.price, price) == 0 && Objects.equals(title, that.title) && Objects.equals(category, that.category) && Objects.equals(description, that.description) && Objects.equals(image, that.image);
+        return Double.compare(that.price, price) == 0 && inventoryCount == that.inventoryCount && Objects.equals(title, that.title) && Objects.equals(category, that.category) && Objects.equals(description, that.description) && Objects.equals(image, that.image);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, price, category, description, image);
+        return Objects.hash(title, price, category, description, image, inventoryCount);
     }
 }

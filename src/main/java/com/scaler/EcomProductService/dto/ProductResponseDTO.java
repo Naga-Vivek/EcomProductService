@@ -14,4 +14,5 @@ public class ProductResponseDTO {
     private String category;
     private String description;
     private String image;
+    private int inventoryCount;
 }

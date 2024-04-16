@@ -44,9 +44,21 @@ public class InitServiceImpl implements InitService{
         // Adding Prices for few products
         Price iPhonePrice = new Price();
         iPhonePrice.setCurrency("INR");
-        iPhonePrice.setAmount(100000);
+        iPhonePrice.setAmount(200000);
         iPhonePrice.setDiscount(0);
         iPhonePrice = priceRepository.save(iPhonePrice);
+
+        Price iPhonePrice1 = new Price();
+        iPhonePrice1.setCurrency("INR");
+        iPhonePrice1.setAmount(150000);
+        iPhonePrice1.setDiscount(0);
+        iPhonePrice1 = priceRepository.save(iPhonePrice1);
+
+        Price iPhonePrice2 = new Price();
+        iPhonePrice2.setCurrency("INR");
+        iPhonePrice2.setAmount(100000);
+        iPhonePrice2.setDiscount(0);
+        iPhonePrice2 = priceRepository.save(iPhonePrice2);
 
         Price macBookPrice = new Price();
         macBookPrice.setCurrency("INR");
@@ -70,14 +82,34 @@ public class InitServiceImpl implements InitService{
         Product iphone = new Product();
         iphone.setCategory(electronics);
         iphone.setPrice(iPhonePrice);
+        iphone.setInventoryCount(12);
         iphone.setDescription("Best Iphone ever");
         iphone.setImage("www.someIphoneImage.com/images");
         iphone.setTitle("Iphone 15 Pro");
         iphone = productRepository.save(iphone);
 
+        Product iphone1 = new Product();
+        iphone1.setCategory(electronics);
+        iphone1.setPrice(iPhonePrice1);
+        iphone1.setInventoryCount(19);
+        iphone1.setDescription("Best Iphone ever");
+        iphone1.setImage("www.someIphoneImage.com/images");
+        iphone1.setTitle("Iphone 14 Pro");
+        iphone1 = productRepository.save(iphone1);
+
+        Product iphone2 = new Product();
+        iphone2.setCategory(electronics);
+        iphone2.setPrice(iPhonePrice2);
+        iphone2.setInventoryCount(12);
+        iphone2.setDescription("Best Iphone ever");
+        iphone2.setImage("www.someIphoneImage.com/images");
+        iphone2.setTitle("Iphone 13 Pro");
+        iphone2 = productRepository.save(iphone2);
+
         Product macBook = new Product();
         macBook.setCategory(electronics);
         macBook.setPrice(macBookPrice);
+        macBook.setInventoryCount(20);
         macBook.setDescription("Best macBook ever");
         macBook.setImage("www.somemacBookImage.com/images");
         macBook.setTitle("macBook 16 Pro");
@@ -86,6 +118,7 @@ public class InitServiceImpl implements InitService{
         Product watch = new Product();
         watch.setCategory(electronics);
         watch.setPrice(watchPrice);
+        watch.setInventoryCount(33);
         watch.setDescription("Best watch ever");
         watch.setImage("www.somewatchImage.com/images");
         watch.setTitle("apple smart watch ");
@@ -94,19 +127,22 @@ public class InitServiceImpl implements InitService{
         Product ps5 = new Product();
         ps5.setCategory(electronics);
         ps5.setPrice(ps5Price);
+        ps5.setInventoryCount(45);
         ps5.setDescription("Best Play station ever");
         ps5.setImage("www.somepSImage.com/images");
         ps5.setTitle("PlayStation 5");
         ps5 = productRepository.save(ps5);
 
+
+
         //Orders
         Order order = new Order();
-        order.setProducts(List.of(iphone,macBook,watch));
+        order.setProducts(List.of(iphone,macBook,watch,iphone1,iphone2));
         orderRepository.save(order);
 
         //Custom Queries
-        Product prod = productRepository.findByTitleLike("Iphone");
-        System.out.println(prod);
+        List<Product> prod = productRepository.findByTitleLike("Iphone");
+        System.out.println(prod.toString());
 
         Product prod1 = productRepository.findByDescriptionTitleLike("Best","Station");
         System.out.println(prod1);
