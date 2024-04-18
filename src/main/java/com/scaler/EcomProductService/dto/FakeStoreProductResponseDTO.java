@@ -8,7 +8,7 @@ import java.util.UUID;
 @Getter
 @Setter
 public class FakeStoreProductResponseDTO {
-    private UUID id;
+    private int id;
     private String title;
     private double price;
     private String category;

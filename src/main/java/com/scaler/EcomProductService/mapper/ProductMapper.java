@@ -18,7 +18,7 @@ public class ProductMapper {
 
     public static ProductResponseDTO fakeStoreProductResponseToProductResponse(FakeStoreProductResponseDTO fakeStoreProductResponseDTO){
         ProductResponseDTO productResponseDTO = new ProductResponseDTO();
-        productResponseDTO.setId(fakeStoreProductResponseDTO.getId());
+        productResponseDTO.setFid(fakeStoreProductResponseDTO.getId());
         productResponseDTO.setTitle(fakeStoreProductResponseDTO.getTitle());
         productResponseDTO.setCategory(fakeStoreProductResponseDTO.getCategory());
         productResponseDTO.setDescription(fakeStoreProductResponseDTO.getDescription());
@@ -30,14 +30,7 @@ public class ProductMapper {
     public static ProductListResponseDTO productsToProductListResponseDTO(List<Product> products){
         ProductListResponseDTO productListResponseDTO = new ProductListResponseDTO();
         for(Product p: products){
-            ProductResponseDTO productResponseDTO = new ProductResponseDTO();
-            productResponseDTO.setId(p.getId());
-            productResponseDTO.setTitle(p.getTitle());
-            productResponseDTO.setCategory(p.getCategory().getCategoryName());
-            productResponseDTO.setDescription(p.getDescription());
-            productResponseDTO.setImage(p.getImage());
-            productResponseDTO.setPrice(p.getPrice().getAmount());
-            productResponseDTO.setInventoryCount(p.getInventoryCount());
+            ProductResponseDTO productResponseDTO = productToProductResponseDTO(p);
             productListResponseDTO.getProducts().add(productResponseDTO);
         }
         return productListResponseDTO;
