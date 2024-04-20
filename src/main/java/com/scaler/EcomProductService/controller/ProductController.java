@@ -48,7 +48,7 @@ public class ProductController {
 
         List<ProductResponseDTO> products = Arrays.asList(p1,p2);
         return ResponseEntity.ok(products);*/
-        validateUser(token);
+        //validateUser(token);
         ProductListResponseDTO productsResponse = productService.getAllProducts();
         return ResponseEntity.ok(productsResponse);
     }
@@ -73,14 +73,14 @@ public class ProductController {
 
         List<ProductResponseDTO> products = Arrays.asList(p1,p2);
         return ResponseEntity.ok(products);*/
-        validateUser(token);
+        //validateUser(token);
         ProductResponseDTO response = productService.getProductById(id);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/products/title/{title}")
     public ResponseEntity getProductByTitle(@PathVariable("title") String title , @RequestHeader("token") String token) throws Exception {
-        validateUser(token);
+        //validateUser(token);
         ProductResponseDTO response = productService.getProductByTitle(title);
         return ResponseEntity.ok(response);
     }
@@ -88,21 +88,21 @@ public class ProductController {
 
     @PostMapping("/products")
     public ResponseEntity createProduct(@RequestBody ProductRequestDTO productRequestDTO , @RequestHeader("token") String token) throws Exception {
-        validateUser(token);
+        //validateUser(token);
         ProductResponseDTO response = productService.createProduct(productRequestDTO);
         return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/products/{id}")
     public ResponseEntity deleteProductById(@PathVariable("id") int id , @RequestHeader("token") String token) throws Exception {
-        validateUser(token);
+        //validateUser(token);
         boolean response = productService.deleteProduct(id);
         return ResponseEntity.ok(response);
     }
 
     @PutMapping("/products/{id}")
     public ResponseEntity updateProductById(@PathVariable("id") int id, @RequestBody ProductRequestDTO updatedproductRequestDTO , @RequestHeader("token") String token) throws Exception {
-        validateUser(token);
+        //validateUser(token);
         ProductResponseDTO response = productService.updateProduct(id, updatedproductRequestDTO);
         return ResponseEntity.ok(response);
     }
