@@ -10,9 +10,9 @@ import java.util.UUID;
 @Setter
 public class ProductResponseDTO {
     //fid is for fakestore product id (3rd party) : int
+    @JsonIgnore //This ignores the property from Json Response and it won't get displayed.
     private int fid;
     //id is for product id (stored in DB) : UUID
-    @JsonIgnore //This ignores the property from Json Response and it won't get displayed.
     private UUID id;
     private String title;
     private double price;

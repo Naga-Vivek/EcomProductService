@@ -23,7 +23,7 @@ public class ProductController {
     private final ProductService productService; //immutable
     private final UserServiceClient userServiceClient;
 
-    public ProductController(@Qualifier("fakeStoreProductService") ProductService productService, UserServiceClient userServiceClient){
+    public ProductController(@Qualifier("productService") ProductService productService, UserServiceClient userServiceClient){
         this.productService = productService;
         this.userServiceClient = userServiceClient;
     }
