@@ -6,6 +6,7 @@ import com.scaler.EcomProductService.dto.*;
 import com.scaler.EcomProductService.exception.ProductNotFoundException;
 import com.scaler.EcomProductService.service.ProductService;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +30,7 @@ public class ProductController {
     }
 
     @GetMapping("/products")
-    public ResponseEntity getAllProducts(@RequestHeader("token") String token) throws Exception {
+    public ResponseEntity getAllProducts(@RequestHeader(name = HttpHeaders.AUTHORIZATION) String token) throws Exception {
 /*        ProductResponseDTO p1 = new ProductResponseDTO();
         p1.setId(1);
         p1.setTitle("Iphone 15 Pro");
@@ -48,13 +49,13 @@ public class ProductController {
 
         List<ProductResponseDTO> products = Arrays.asList(p1,p2);
         return ResponseEntity.ok(products);*/
-        //validateUser(token);
+        validateUser(token);
         ProductListResponseDTO productsResponse = productService.getAllProducts();
         return ResponseEntity.ok(productsResponse);
     }
 
     @GetMapping("/products/{id}")
-    public ResponseEntity getProductById(@PathVariable("id") int id , @RequestHeader("token") String token) throws Exception {
+    public ResponseEntity getProductById(@PathVariable("id") int id , @RequestHeader(name = HttpHeaders.AUTHORIZATION) String token) throws Exception {
 /*        ProductResponseDTO p1 = new ProductResponseDTO();
         p1.setId(1);
         p1.setTitle("Iphone 15 Pro");
@@ -79,7 +80,7 @@ public class ProductController {
     }
 
     @GetMapping("/products/title/{title}")
-    public ResponseEntity getProductByTitle(@PathVariable("title") String title , @RequestHeader("token") String token) throws Exception {
+    public ResponseEntity getProductByTitle(@PathVariable("title") String title , @RequestHeader(name = HttpHeaders.AUTHORIZATION) String token) throws Exception {
         //validateUser(token);
         ProductResponseDTO response = productService.getProductByTitle(title);
         return ResponseEntity.ok(response);
@@ -87,21 +88,21 @@ public class ProductController {
 
 
     @PostMapping("/products")
-    public ResponseEntity createProduct(@RequestBody ProductRequestDTO productRequestDTO , @RequestHeader("token") String token) throws Exception {
+    public ResponseEntity createProduct(@RequestBody ProductRequestDTO productRequestDTO , @RequestHeader(name = HttpHeaders.AUTHORIZATION) String token) throws Exception {
         //validateUser(token);
         ProductResponseDTO response = productService.createProduct(productRequestDTO);
         return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/products/{id}")
-    public ResponseEntity deleteProductById(@PathVariable("id") int id , @RequestHeader("token") String token) throws Exception {
+    public ResponseEntity deleteProductById(@PathVariable("id") int id , @RequestHeader(name = HttpHeaders.AUTHORIZATION) String token) throws Exception {
         //validateUser(token);
         boolean response = productService.deleteProduct(id);
         return ResponseEntity.ok(response);
     }
 
     @PutMapping("/products/{id}")
-    public ResponseEntity updateProductById(@PathVariable("id") int id, @RequestBody ProductRequestDTO updatedproductRequestDTO , @RequestHeader("token") String token) throws Exception {
+    public ResponseEntity updateProductById(@PathVariable("id") int id, @RequestBody ProductRequestDTO updatedproductRequestDTO , @RequestHeader(name = HttpHeaders.AUTHORIZATION) String token) throws Exception {
         //validateUser(token);
         ProductResponseDTO response = productService.updateProduct(id, updatedproductRequestDTO);
         return ResponseEntity.ok(response);
